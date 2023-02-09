@@ -6,9 +6,42 @@ using System.Threading.Tasks;
 
 namespace Project1
 {
-    class LargestPalindromeProduct
+    class CodeChallengeFunctions
     {
-        public static void Main(string[] args)
+        public long LargestPrimeFactor(long testNumber)
+        {
+            List<long> primeNumbers = new List<long>();
+            long checkNumber = 2;
+
+            while (checkNumber < testNumber)
+            {
+                bool isPrime = true;
+
+                foreach (long number in primeNumbers)
+                {
+                    if (checkNumber % number == 0)
+                    {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime)
+                {
+                    primeNumbers.Add(checkNumber);
+                    while (testNumber % checkNumber == 0)
+                    {
+                        testNumber = testNumber / checkNumber;
+                    }
+                }
+                if (checkNumber < testNumber)
+                {
+                    checkNumber++;
+                }
+            }
+            return checkNumber;
+        }
+
+        public int LargestPalindromeProduct()
         {
             int maxPalindrome = 0;
 
@@ -40,8 +73,7 @@ namespace Project1
                     }
                 }
             }
-            Console.WriteLine(maxPalindrome);
-            Console.ReadKey();
+            return (maxPalindrome);
         }
     }
 }
