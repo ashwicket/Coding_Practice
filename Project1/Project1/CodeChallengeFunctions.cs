@@ -75,5 +75,66 @@ namespace Project1
             }
             return (maxPalindrome);
         }
+
+        public int SmallestDivisibleNumber(int min, int max)
+        {
+            if ((min <= 0) || (max < min))
+            {
+                return 0;
+            }
+            else if (max == min)
+            {
+                return min;
+            }
+            else
+            {
+                int number = max * min;
+                bool numberCheck = false;
+
+                while (!numberCheck)
+                {
+                    numberCheck = true;
+                    for (int i = min; i <= max; i++)
+                    {
+                        // Check if number is divisible
+                        if ((number % i) != 0)
+                        {
+                            // Number not divisible
+                            numberCheck = false;
+                            break;
+                        }
+                    }
+                    if (!numberCheck)
+                    {
+                        // Divisible number not found
+                        number++;
+                    }
+                }
+
+                return number;
+            }
+        }
+
+        public int SumSquareDiffernence(int maxNum)
+        {
+            if (maxNum <= 0)
+            {
+                return 0;
+            }
+            else
+            {
+                int sumSquare = 0;
+                int squareSum = 0;
+
+                for (int i = 1; i <= maxNum; i++)
+                {
+                    sumSquare += i * i;
+                    squareSum += i;
+                }
+                squareSum = squareSum * squareSum;
+
+                return squareSum - sumSquare;
+            }
+        }
     }
 }

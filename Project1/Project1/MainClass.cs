@@ -12,7 +12,7 @@ namespace Project1
         {
             CodeChallengeFunctions func = new CodeChallengeFunctions();
 
-            Console.WriteLine(func.LargestPrimeFactor(600851475143));
+            Console.WriteLine(func.SumSquareDiffernence(100));
             Console.ReadKey();
         }
     }
