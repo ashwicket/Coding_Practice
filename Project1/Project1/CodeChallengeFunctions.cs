@@ -136,5 +136,93 @@ namespace Project1
                 return squareSum - sumSquare;
             }
         }
+
+        public int FindPrimeNumber(int number)
+        {
+            if (number <= 0)
+                return 0;
+
+            List<int> primeNumbers = new List<int>();
+            int currentNumber = 2;
+            int currentPrimeNumber = 2;
+            primeNumbers.Add(2);
+
+            for (int i = 2; i <= number; i++)
+            {
+                bool primeNumberFound = false;
+                while (primeNumberFound == false)
+                {
+                    currentNumber++;
+                    primeNumberFound = true;
+
+                    foreach (int primeNumber in primeNumbers)
+                    {
+                        if (currentNumber % primeNumber == 0)
+                        {
+                            primeNumberFound = false;
+                            break;
+                        }
+                    }
+                }
+                currentPrimeNumber = currentNumber;
+                primeNumbers.Add(currentPrimeNumber);
+            }
+
+            return currentPrimeNumber;
+        }
+
+        public long LargestSeriesProduct(string series, int checkLength)
+        {
+            if (series.Length < checkLength)
+                return 0;
+
+            List<int> currentNumbers = new List<int>();
+            long currentProduct = 1;
+            long largestProduct = 1;
+            int currentZeroIndex = -1;
+
+            for (int i = 0; i < series.Length; i++)
+            {
+                // Get Number in Series
+                long number = long.Parse(series[i].ToString());
+                currentNumbers.Add(((int)number));
+
+                // Check if 0 is in Series
+                if (number == 0)
+                    currentZeroIndex = currentNumbers.Count - 1;
+
+                if (currentNumbers.Count == checkLength)
+                {
+                    // If 0 is in Series, Reset the Product
+                    if (currentZeroIndex >= 0)
+                        currentProduct = 1;
+
+                    // If 0 is Not in Series, Multiply the Whole Series
+                    else if (currentZeroIndex == -1)
+                    {
+                        currentProduct = 1;
+                        foreach (long currentNumber in currentNumbers)
+                            currentProduct *= currentNumber;
+                    }
+                    // Otherwise, Multiply Just the New Number
+                    else
+                        currentProduct *= number;
+
+                    // Check if Largest Product
+                    if (currentProduct > largestProduct)
+                        largestProduct = currentProduct;
+
+                    // If 0 is Not in Series, Divide First Number
+                    if (currentZeroIndex < 0)
+                        currentProduct /= currentNumbers[0];
+
+                    currentZeroIndex--;
+                    // Remove First Number to Make Room for Next Number
+                    currentNumbers.RemoveAt(0);
+                }
+            }
+
+            return largestProduct;
+        }
     }
 }
